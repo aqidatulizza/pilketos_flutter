@@ -12,6 +12,7 @@ class Welcome extends StatefulWidget {
 }
 
 class _WelcomeState extends State<Welcome> {
+  bool _isHiddenPassword = true;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -163,18 +164,29 @@ class _WelcomeState extends State<Welcome> {
                                               height: size.height * .02,
                                             ),
                                             TextField(
+                                              obscureText: _isHiddenPassword,
                                               style: TextStyle(fontSize: 14),
                                               decoration: InputDecoration(
-                                                contentPadding: EdgeInsets.all(
-                                                    size.height * .02),
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(15),
-                                                ),
-                                                hintText: "NIS : 1899055xxxxx",
-                                                labelText: "Password",
-                                                prefixIcon: Icon(Icons.lock),
-                                              ),
+                                                  contentPadding:
+                                                      EdgeInsets.all(
+                                                          size.height * .02),
+                                                  border: OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15),
+                                                  ),
+                                                  hintText:
+                                                      "NIS : 1899055xxxxx",
+                                                  labelText: "Password",
+                                                  prefixIcon: Icon(Icons.lock),
+                                                  suffixIcon: InkWell(
+                                                    onTap: _tooglePasswordView,
+                                                    child: Icon(_isHiddenPassword
+                                                        ? Icons
+                                                            .visibility_outlined
+                                                        : Icons
+                                                            .visibility_off_outlined),
+                                                  )),
                                             ),
                                             SizedBox(
                                               height: size.height * .03,
@@ -241,5 +253,11 @@ class _WelcomeState extends State<Welcome> {
         ),
       ),
     );
+  }
+
+  void _tooglePasswordView() {
+    setState(() {
+      _isHiddenPassword = !_isHiddenPassword;
+    });
   }
 }
